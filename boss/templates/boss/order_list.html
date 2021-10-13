@@ -5,24 +5,26 @@
         <th style="border: 1px solid black;">배달 예상 시간</th>
         <th style="border: 1px solid black;">배달 완료 여부</th>
     </tr>
-
     {% for order in order_list %}
     <tr style="border: 1px solid black;">
         <td style="border: 1px solid black;">
             {{ order.order_date }}
         </td>
-
         <td style="border: 1px solid black;">
             {% for food in order.order_food_set.all %}
                 <h5> {{ food.food_name }}</h5>
             {% endfor %}
         </td>
-
         <td style="border: 1px solid black;">
             {% if order.estimated_time == -1 %}
-                미정
+                <form method="post" action="{% url 'time' %}">
+                    <input type="number" name="estimated_time">분
+                    <input type="hidden" name="order_id" value="{{order.id}}">
+                    <input type="submit" value="예상시간 입력">
+                    
+                </form>
             {% else %}
-                {{ order.estimated_time }}
+                {{ order.estimated_time }}분
             {% endif %}
         </td>
         <td style="border: 1px solid black;">

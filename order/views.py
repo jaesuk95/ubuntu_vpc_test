@@ -127,7 +127,6 @@ def order(request):
        
         for food in food_list:
             order_item.order_food_set.create(food_name = food)
-
         return render(request, 'order/success.html')
 
     elif request.method == 'GET':
